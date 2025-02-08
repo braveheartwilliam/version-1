@@ -4,6 +4,6 @@
 	let { data }: PageProps = $props();
 </script>
 
-<h1>Home</h1>
+<h1>Air Conditioning</h1>
 
 <h1>{data.post.title}</h1>
