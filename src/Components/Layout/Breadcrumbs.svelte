@@ -1,27 +1,65 @@
 <script lang="ts">
-	import { addBreadcrumb } from '../../routes/shared.svelte';
-	let { route, action } = $props();
-	// let updatedBreadcrumbs: string[] = $state([]);
-	let updatedBreadcrumbs: string[] = $state([]);
+	import { breadcrumbs } from '../../routes/shared.svelte';
+	import { goto } from '$app/navigation';
 
-	console.log('route', route, '...', 'action', action);
-
-	if (action === 'add') {
-		$effect(() => {
-			updatedBreadcrumbs = addBreadcrumb(route);
-		});
-		console.log('this is the route being added', route);
-	} else if (action === 'remove') {
-		$effect(() => {
-			// updatedBreadcrumbs = breadcrumbs.splice(-1, 1);
-		});
+	function handleBreadcrumbClick(index: number, path: string) {
+		// Now you have access to both the index and the path
+		console.log(
+			`Clicked breadcrumb at index ${index}: ${path} array ${breadcrumbs.arrBreadcrumbs}`
+		);
+		breadcrumbs.fnRemoveBreadcrumb(index);
+		// Navigate to the path
+		goto(path);
 	}
+
+	// console.log('Breadcrumbs - LayoutProps', layout);
+
+	// let addRoute = data.route;
+	// console.log('Breadcrumbs - addRoute', addRoute);
+
+	// let { addRoute } = $props();
+	// console.log('addRoute', addRoute);
+
+	// let updatedBreadcrumbs: string[] = $state([]);
+	// updatedBreadcrumbs = addBreadcrumb(addRoute);
+
+	// console.log('route - Breadcrumbs - line 8', addRoute, 'action', action);
+
+	// if (action === 'add') {
+	// 	$inspect('Breadcrumbs-line 11', updatedBreadcrumbs);
+	// 	console.log('addRoute', addRoute);
+	// 	updatedBreadcrumbs = addBreadcrumb(addRoute);
+	// 	$inspect('Breadcrumbs-line 14', updatedBreadcrumbs);
+	// 	console.log('this is the route being added', addRoute);
+	// } else if (action === 'remove') {
+	// 	$effect(() => {
+	// 		// updatedBreadcrumbs = breadcrumbs.splice(-1, 1);
+	// 	});
+	// }
+
+	// $inspect('updatedBreadcrumbs', updatedBreadcrumbs);
+
+	// let unsubscribe = breadcrumbs.subscribe((value) => {
+	// 	$breadcrumbs = value;
+	// });
+	// onDestroy(() => {
+	// 	unsubscribe();
+	// });
+	$inspect('Breadcrumbs - breadcrumbs', breadcrumbs);
 </script>
 
-{#each updatedBreadcrumbs as crumb}
-	{#if ( crumb != '')}
-		{@const trimCrumb = crumb.slice(1)}
-		<h5 class="breadcrumbs"><a href={crumb}>...{trimCrumb}</a></h5>
+{#each breadcrumbs.arrBreadcrumbs as crumb, i}
+	{#if crumb != null}
+		{#if crumb === '/'}
+			{@const trimCrumb = 'Home'}
+			<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
+		{:else}
+			{@const trimCrumb = crumb.slice(1)}
+			<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
+		{/if}
+
+		<!-- <h5 class="breadcrumbs"><a href={crumb}>...{trimCrumb}</a></h5> -->
+		<!-- <button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button> -->
 	{/if}
 {/each}
 

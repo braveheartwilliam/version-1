@@ -4,6 +4,12 @@
 	let { data }: PageProps = $props();
 </script>
 
-<h1>Chat</h1>
+<div style="background-color:chartreuse; height: 100vh;align-content: center;">
+	<h1
+		style="color:red; text-align:center;align-items: center;vertical-align: middle;font-size: 20vw;"
+	>
+		Chat
+	</h1>
+</div>
 
-<h1>{data.post.title}</h1>
+

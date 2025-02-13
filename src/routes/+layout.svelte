@@ -1,18 +1,33 @@
 <script lang="ts">
 	import Breadcrumbs from '../../src/Components/Layout/Breadcrumbs.svelte';
+	import { breadcrumbs } from './shared.svelte';
 	import '../app.css';
 	import type { LayoutProps } from './$types';
 	import { goto } from '$app/navigation';
-	// import { currentRoute } from './shared.svelte';
 	import { previousRoute } from './shared.svelte';
+	// import {
+	// 	updateCurrentRoute,
+	// 	updatePreviousRoute,
+	// 	getCurrentRoute,
+	// 	getPreviousRoute
+	// } from './shared.svelte';
 	let { data, children }: LayoutProps = $props();
-	let route = $state('');
-	$effect(() => {
-		route = data.post.route;
-		console.log('route-effect', route);
-	});
-	// previousRoute.prevRoute = currentRoute.route;
-	// currentRoute.currRoute = route;
+	// let route = $state('');
+	//*******/ let route = data.route;
+	//******/ addBreadcrumb(route);
+
+	// let previousRoute = $state('');
+	// previousRoute = data.post.previousRoute;
+
+	// $effect(() => {
+	// 	console.log('data', data, 'route', { route });
+	// 	// route = data.post.route;
+	// 	$inspect('route - svelte - line 20', route);
+
+	// 	console.log('route-effect', { route });
+
+	// 	//addBreadcrumb(route);
+	// });
 
 	// let { children } = $props();
 	let isOpen = $state(false);
@@ -20,6 +35,23 @@
 	let isContactOpen = $state(false);
 
 	// let subMenuChanged = $state(false);
+
+	function handleMouseOver(e: MouseEvent, href: string) {
+		e.preventDefault();
+		// isServicesOpen = true;
+		console.log('handleMouseOver', href);
+	}
+	function handleClick(href: string) {
+		// let clickedHREF = href + '[clicked]';
+		// console.log('clickedHREF', clickedHREF);
+
+		// goto(href);
+
+		// goto(clickedHREF);
+		console.log('layout.svelte - handleClick - href', href);
+
+		goto(href);
+	}
 
 	function toggleMenu() {
 		isOpen = !isOpen;
@@ -35,13 +67,24 @@
 	// 	console.log('next');
 	// }
 	function previous() {
-		previousRoute.prevRoute = route;
-		console.log('previousRoute.prevRoute', route);
-		goto(previousRoute.prevRoute);
+		// console.log('previous', 'previousRoute.previousRouteId', previousRoute.previousRouteId);
+		const length = breadcrumbs.arrBreadcrumbs.length;
+		let transferRouteId = breadcrumbs.arrBreadcrumbs.slice(length - 2, length - 1)[0];
+		// console.log('transferRouteId', transferRouteId);
+		breadcrumbs.arrBreadcrumbs.splice(length - 2, length);
+
+		goto(transferRouteId);
 	}
 </script>
 
-<button onclick={previous}> Back </button>
+<div>
+	{#if breadcrumbs.arrBreadcrumbs}
+		<Breadcrumbs />
+	{/if}
+</div>
+<div>
+	<button onclick={previous}> Back </button>
+</div>
 
 <h1 style="color:red">First Playground App</h1>
 
@@ -64,15 +107,14 @@
 				onmouseleave={() => {
 					isServicesOpen = false;
 				}}
+				onfocus={() => {
+					isServicesOpen = true;
+				}}
+				onmouseover={() => {
+					isServicesOpen = true;
+				}}
 			>
-				<a
-					href="/services"
-					onmouseover={() => {
-						isServicesOpen = true;
-					}}
-					onfocus={toggleServicesMenu}
-					onclick={toggleServicesMenu}>Services</a
-				>
+				<span>Services</span>
 
 				<ul
 					class={isServicesOpen ? 'menu-services-toggle-open' : 'menu-services-toggle-closed'}
@@ -81,9 +123,30 @@
 					}}
 				>
 					<!-- <ul class="menu-toggle-closed"> -->
-					<li><a href="/services/air">A/C</a></li>
-					<li><a href="/services/plumbing">Plumbing</a></li>
-					<li><a href="/services/fixit">Contact</a></li>
+					<li>
+						<button
+							onclick={() => handleClick('/services/air')}
+							onfocus={() => {
+								isServicesOpen = true;
+							}}>Air Conditioning</button
+						>
+					</li>
+					<li>
+						<button
+							onclick={() => handleClick('/services/plumbing')}
+							onfocus={() => {
+								isServicesOpen = true;
+							}}>Plumbing</button
+						>
+					</li>
+					<li>
+						<button
+							onclick={() => handleClick('/services/fixit')}
+							onfocus={() => {
+								isServicesOpen = true;
+							}}>Fixit</button
+						>
+					</li>
 				</ul>
 			</li>
 
@@ -92,30 +155,54 @@
 					isContactOpen = false;
 				}}
 			>
-				<a
-					href="/contact"
+				<span
+					class="menu-link"
+					role="menuitem"
+					tabindex="0"
 					onmouseover={toggleContactMenu}
-					onfocus={toggleContactMenu}
-					onclick={toggleContactMenu}>Contact</a
+					onfocus={toggleContactMenu}>Contact</span
 				>
 				<ul
 					class={isContactOpen ? 'menu-contact-toggle-open' : 'menu-contact-toggle-closed'}
 					onmouseleave={() => {
 						isContactOpen = false;
 					}}
+					onmouseover={(e) => {
+						e.preventDefault();
+						isContactOpen = true;
+					}}
+					onfocus={() => {
+						isContactOpen = true;
+					}}
 				>
 					<!-- <ul class="menu-toggle-closed"> -->
-					<li><a href="/contact/email">Email</a></li>
-					<li><a href="/contact/chat">Chat</a></li>
+					<li>
+						<button
+							onclick={() => handleClick('/contact/email')}
+							onfocus={() => {
+								isContactOpen = true;
+							}}>Email</button
+						>
+					</li>
+					<li>
+						<button
+							onclick={() => handleClick('/contact/chat')}
+							onfocus={() => {
+								isContactOpen = true;
+							}}>Chat</button
+						>
+					</li>
 				</ul>
+			</li>
+			<li>
+				<button
+					onclick={() => {
+						handleClick('/resetBreadcrumbs');
+					}}>Reset</button
+				>
 			</li>
 		</ul>
 	</nav>
-	<p>Before Breadcrumbs</p>
-	<Breadcrumbs {route} action={'add'} />
-	<p>After Breadcrumbs</p>
-
-	<h2>{data.post.title}</h2>
 
 	{@render children()}
 </div>
@@ -167,22 +254,7 @@
 		font-size: 3rem;
 		line-height: 0.4;
 		margin-bottom: 10px;
-		/* margin-top: 0;
-		margin-left: 0;
-		padding-top: 0;
-		padding-left: 0;
-÷		display: inline-block; */
 	}
-	/* .page p {
-		font-size: 12px;
-		padding-left: 1vw;
-		padding-left: 0;
-		padding-bottom: 0;
-		margin-bottom: 0;
-		border: none;
-		box-sizing: border-box;
-		display: inline-block;
-	} */
 	nav {
 		background-color: #333;
 		color: white;
@@ -216,14 +288,23 @@
 	}
 
 	nav ul li ul li {
-		/* margin-left: 1rem; */
 		margin-bottom: 0%;
 		padding-bottom: 0%;
 		width: 100%;
+		transform: translateZ(0); /* Forces GPU acceleration */
+		transition: transform 0.3s;
 	}
 	nav ul li ul li:hover {
-		background-color: rgb(165, 238, 184);
-		color: black;
+		transform: scale(1.2);
+		background-color: violet;
+	}
+	.item-hoverable {
+		transform: translateZ(0); /* Forces GPU acceleration */
+		transition: transform 0.2s;
+	}
+
+	.item-hoverable:hover {
+		transform: scale(1.1);
 	}
 
 	.menu-toggle-closed {
@@ -265,7 +346,6 @@
 		color: black;
 	}
 
-	/* @media (max-width: 768px) { */
 	/* @media (max-width: 768px) { */
 	/* 	.nav-links { */
 	/* 		display: none; */

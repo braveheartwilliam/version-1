@@ -2,8 +2,7 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+	console.log('data', data);
 </script>
 
 <h1>About</h1>
-
-<h1>{data.post.title}</h1>
