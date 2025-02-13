@@ -69,6 +69,9 @@
 	function previous() {
 		// console.log('previous', 'previousRoute.previousRouteId', previousRoute.previousRouteId);
 		const length = breadcrumbs.arrBreadcrumbs.length;
+		if (length < 2) {
+			return;
+		}
 		let transferRouteId = breadcrumbs.arrBreadcrumbs.slice(length - 2, length - 1)[0];
 		// console.log('transferRouteId', transferRouteId);
 		breadcrumbs.arrBreadcrumbs.splice(length - 2, length);
@@ -83,7 +86,7 @@
 	{/if}
 </div>
 <div>
-	<button onclick={previous}> Back </button>
+	<button onclick={previous} style="font-size:2rem; color: green"> ←Back </button>
 </div>
 
 <h1 style="color:red">First Playground App</h1>

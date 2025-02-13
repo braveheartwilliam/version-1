@@ -48,20 +48,21 @@
 	$inspect('Breadcrumbs - breadcrumbs', breadcrumbs);
 </script>
 
-{#each breadcrumbs.arrBreadcrumbs as crumb, i}
-	{#if crumb != null}
-		{#if crumb === '/'}
-			{@const trimCrumb = 'Home'}
-			<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
-		{:else}
-			{@const trimCrumb = crumb.slice(1)}
-			<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
-		{/if}
-
-		<!-- <h5 class="breadcrumbs"><a href={crumb}>...{trimCrumb}</a></h5> -->
-		<!-- <button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button> -->
-	{/if}
-{/each}
+<div style="height: 4vh;display: flex;align-items: center;">
+	<div style="vertical-align: middle;font-size: 1.5rem;color:slateblue">
+		{#each breadcrumbs.arrBreadcrumbs as crumb, i}
+			{#if crumb != null}
+				{#if crumb === '/'}
+					{@const trimCrumb = 'Home'}
+					<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
+				{:else}
+					{@const trimCrumb = crumb.slice(1)}
+					<button onclick={() => handleBreadcrumbClick(i, crumb)}> ...{trimCrumb}</button>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+</div>
 
 <style>
 	.breadcrumbs {
