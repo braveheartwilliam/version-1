@@ -4,13 +4,7 @@
 	import '../app.css';
 	import type { LayoutProps } from './$types';
 	import { goto } from '$app/navigation';
-	import { previousRoute } from './shared.svelte';
-	// import {
-	// 	updateCurrentRoute,
-	// 	updatePreviousRoute,
-	// 	getCurrentRoute,
-	// 	getPreviousRoute
-	// } from './shared.svelte';
+	// import { previousRoute } from './shared.svelte';
 	let { data, children }: LayoutProps = $props();
 	// let route = $state('');
 	//*******/ let route = data.route;
@@ -18,16 +12,6 @@
 
 	// let previousRoute = $state('');
 	// previousRoute = data.post.previousRoute;
-
-	// $effect(() => {
-	// 	console.log('data', data, 'route', { route });
-	// 	// route = data.post.route;
-	// 	$inspect('route - svelte - line 20', route);
-
-	// 	console.log('route-effect', { route });
-
-	// 	//addBreadcrumb(route);
-	// });
 
 	// let { children } = $props();
 	let isOpen = $state(false);
@@ -206,7 +190,6 @@
 			</li>
 		</ul>
 	</nav>
-
 	{@render children()}
 </div>
 

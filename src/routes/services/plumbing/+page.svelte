@@ -10,4 +10,17 @@
 	>
 		Plumbing
 	</h1>
+
+	<div>
+		{#if data.result}
+			{#each data.result as item:object}
+				<div>
+					<h2>{item.one}</h2>
+					<p>{item.two}</p>
+				</div>
+			{/each}
+		{:else}
+			<h2>No data</h2>
+		{/if}
+	</div>
 </div>
