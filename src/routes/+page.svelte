@@ -1,13 +1,7 @@
 <script lang="ts">
-	import type { PageProps } from './$types';
-
+	import type { PageProps } from '../$types';
+import { goto } from '$app/navigation';
 	let { data }: PageProps = $props();
+goto('/home');
 </script>
 
-<div style="background-color: lightblue; height: 100vh;align-content: center;">
-	<h1
-		style="color:red; text-align:center;align-items: center;vertical-align: middle;font-size: 20vw;"
-	>
-		Home
-	</h1>
-</div>

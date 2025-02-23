@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import Database from 'better-sqlite3';
 import { env } from '$env/dynamic/private';
+import * as schema from '$lib/auth/auth-schema';
 console.log('env.DATABASE_URL', env.DATABASE_URL);
 
 if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
@@ -18,5 +19,5 @@ if (!env.AUTH_DATABASE_URL) throw new Error('AUTH_DATABASE_URL is not set');
 const client2 = new Database(env.AUTH_DATABASE_URL);
 console.log('client2', client2);
 
-export const dbAUTH = drizzle(client2);
+export const dbAUTH = drizzle(client2, {schema});
 console.log('dbAUTH', dbAUTH);

@@ -1,25 +1,18 @@
-import type { Handle } from '@sveltejs/kit';
-import * as auth from '$lib/server/auth-lucid.js';
 
-const handleAuth: Handle = async ({ event, resolve }) => {
-	const sessionToken = event.cookies.get(auth.sessionCookieName);
-	if (!sessionToken) {
-		event.locals.user = null;
-		event.locals.session = null;
-		return resolve(event);
-	}
+//***** Just below is from Grok3 */
 
-	const { session, user } = await auth.validateSessionToken(sessionToken);
-	if (session) {
-		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
-	} else {
-		auth.deleteSessionTokenCookie(event);
-	}
+//import type { Handle } from '@sveltejs/kit';
 
-	event.locals.user = user;
-	event.locals.session = session;
+// export const handle: Handle = async ({ event, resolve }) => {
+	// const session = await auth.handlers.session(event);
+	// event.locals.session = session;
+	// event.locals.user = session?.user;
+	// return resolve(event);
+// };
+//
+import { auth } from '$lib/auth/auth';
+import { svelteKitHandler } from 'better-auth/svelte-kit';
 
-	return resolve(event);
-};
-
-export const handle: Handle = handleAuth;
+export async function handle({ event, resolve }) {
+	return svelteKitHandler({ event, resolve, auth });
+}
