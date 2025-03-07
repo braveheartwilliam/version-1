@@ -4,7 +4,12 @@
 	import '../app.css';
 	import type { LayoutProps } from './$types';
 	import { goto } from '$app/navigation';
+	// import '../style.css';
+	import '../app.css';
+	import '../style.css';  
 	// import { previousRoute } from './shared.svelte';
+	console.log('***layout.svelte***');
+
 	let { data, children }: LayoutProps = $props();
 	// let route = $state('');
 	//*******/ let route = data.route;
@@ -77,18 +82,18 @@
 
 <!-- <button onclick={next}> Next </button> -->
 
-<div class="page">
-	<div class="menu-button-div">
+<div class="page" data-theme="light" style="background-color: var(--color-primary)">
+	<div class="menu-button-div bg-primary">
 		<p class="menu-text">menu</p>
 		<button class="menu-toggle-button" aria-label="Toggle menu" onclick={toggleMenu} tabindex="0">
 			☰
 		</button>
 	</div>
 
-	<nav class={isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'}>
-		<ul class={isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'}>
+	<nav class="{isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'} bg-primary" >
+		<ul class="{isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'}">
 			<!-- <ul class="menu-toggle-closed"> -->
-			<li><a href="/">Home</a></li>
+			<li><a href="/home">Home</a></li>
 			<li><a href="/about">About</a></li>
 			<li
 				onmouseleave={() => {
@@ -223,6 +228,7 @@
 		margin-left: 0;
 		padding-top: 0;
 		padding-left: 0;
+		background-color: bg-green-500;
 	}
 	.menu-text {
 		font-size: 0.8rem;
@@ -234,7 +240,6 @@
 		padding-left: 0;*/
 	}
 	.menu-toggle-button {
-		background-color: none;
 		color: black;
 		border: none;
 		font-size: 3rem;
@@ -244,13 +249,13 @@
 	nav {
 		background-color: #333;
 		color: white;
-		/* padding: 1rem; */
+		padding: 0;
 		display: flex;
 		justify-content: flex-start;
 		width: fit-content;
 	}
 	nav ul {
-		width: fit-content;
+		width: auto;
 		/* height: 1.6rem; */
 		margin: 0;
 		margin-left: 5px;

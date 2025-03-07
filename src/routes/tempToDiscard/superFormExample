@@ -1,0 +1,17 @@
+import { superValidate } from 'sveltekit-superforms/server';
+import { loginSchema } from  '../../lib/zod/schemas';
+import { fail } from '@sveltejs/kit';
+
+export const load = async () => {
+  const form = await superValidate(loginSchema);
+  return { form };
+};
+
+export const actions = {
+  default: async ({ request }) => {
+    const form = await superValidate(request, loginSchema);
+    if (!form.valid) return fail(400, { form });
+    // Add login logic here (e.g., Better Auth sign-in)
+    return { form };
+  },
+};

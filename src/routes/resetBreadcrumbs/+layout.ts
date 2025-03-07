@@ -8,7 +8,7 @@ export const load: LayoutLoad = ({ route }) => {
 
 	// breadcrumbs.update( ( crumb ) => [] );
 	breadcrumbs.arrBreadcrumbs = [];
-	goto('/');
+	goto('/home');
 
 	return {
 		// route: <string>route.id

@@ -1,3 +1,15 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+.defaultPageStyle {
+	/* This is in the app.html  */
+	font-family: Arial, sans-serif;
+	@apply bg-primary font-sans;
+}
+@plugin "daisyui" {
+	themes: themes: light --default, dark, cupcake;,
+	prefix: "dayZ-";
+}
+
+

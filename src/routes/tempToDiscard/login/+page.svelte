@@ -16,9 +16,9 @@
 
 	// Handle form submission
 	async function handleLogin() {
-		console.log('Login - handleLogin executing');
+		console.log('Login - handleLogin');
 		try {
-			const signInResponse = await authClient.signIn.email(
+			const { user, tokens, session } = await authClient.signIn.email(
 				{
 					email,
 					password
@@ -39,10 +39,9 @@
 					}
 				}
 			);
-			// console.log('tokens', data?.token);
-			// console.log('user', data?.user);
-			// console.log('session', data?.user.id);
-			console.log('signInResponse', signInResponse);
+			console.log('tokens', tokens);
+			console.log('user', user);
+			console.log('session', session);
 
 			// sessionData = data;
 			// errorText = error?.status;
@@ -58,6 +57,7 @@
 	console.log('after handleLogin');
 	console.log('Login - sessionData', sessionData);
 	console.log('Login - errorMessage', errorText);
+
 </script>
 
 <h1>Login</h1>

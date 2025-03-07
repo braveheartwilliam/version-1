@@ -7,7 +7,11 @@ export const user = sqliteTable('user', {
 	emailVerified: integer('email_verified', { mode: 'boolean' }).notNull(),
 	image: text('image'),
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+	role: text('role'),
+	banned: integer('banned', { mode: 'boolean' }),
+	banReason: text('banReason'),
+	banExpires: integer('banExpires',{ mode: 'timestamp' })
 });
 
 // grok3 puts password: text("password").notNull(), // Hashed password in user table
@@ -22,7 +26,8 @@ export const session = sqliteTable('session', {
 	userAgent: text('user_agent'),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id, { onDelete: 'cascade' })
+		.references(() => user.id, { onDelete: 'cascade' }),
+	impersonatedBy: text('impersonated_by')
 });
 
 export const account = sqliteTable('account', {

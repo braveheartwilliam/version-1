@@ -1,6 +1,9 @@
-export default {
-	plugins: {
-		tailwindcss: {},
-		autoprefixer: {}
-	}
-};
+// /** @type {{ plugins: Record<string, any> }} */
+// export default {
+// 	plugins: {
+// 		'postcss-import': {},
+// 		tailwindcss: {},
+// 		autoprefixer: {},
+// 		'@tailwindcss/postcss': {}
+// 	}
+// };

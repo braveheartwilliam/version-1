@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui/theme" {
+	name: 'light';
+	default: true;
+	--color-primary: lightblue;
+	--color-secondary: teal;
+}
+
+@plugin "daisyui" {
+	themes:
+		[ 'light',
+		'dark',
+		'cupcake'];
+	prefix: 'dayZ-';
+}

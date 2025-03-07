@@ -23,7 +23,8 @@ export const actions: Actions = {
 				body: {
 					email: email,
 					password: password,
-					name: email.split('@')[0]
+					name: email.split( '@' )[ 0 ],
+					role: 'user'
 				}
 			});
 			console.log('signup response', response);

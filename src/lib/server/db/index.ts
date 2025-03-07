@@ -16,8 +16,9 @@ console.log('db', db);
 console.log('env.AUTH_DATABASE_URL', env.AUTH_DATABASE_URL);
 
 if (!env.AUTH_DATABASE_URL) throw new Error('AUTH_DATABASE_URL is not set');
-const client2 = new Database(env.AUTH_DATABASE_URL);
+const verboseLogger = (message: unknown, ...args: unknown[]) => console.log(message, ...args);
+const client2 = new Database(env.AUTH_DATABASE_URL, { verbose: verboseLogger });
 console.log('client2', client2);
 
-export const dbAUTH = drizzle(client2, {schema});
+export const dbAUTH = drizzle(client2, { schema });
 console.log('dbAUTH', dbAUTH);

@@ -3,6 +3,7 @@ import { createAuthClient } from 'better-auth/svelte'; // make sure to import fr
 export const authClient = createAuthClient({
 	baseURL: 'http://localhost:5173'
 } );
+export const { signIn, signUp, useSession } = authClient;
 
 
 // const { data, error } = await authClient.signUp.email({
