@@ -1,7 +1,7 @@
 <!-- src/routes/login/+page.svelte -->
 <script lang="ts">
 	// import { enhance } from '$app/forms';
-	import { authClient } from '$lib/auth/auth-client';
+	import { authClient } from '$lib/delete-auth/auth-client';
 	// export let data: { message?: string };
 
 	console.log('***** >>>>>>>> This is where the form would be rendered');

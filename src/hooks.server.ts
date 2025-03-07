@@ -1,4 +1,4 @@
-import { auth } from '$lib/auth/auth';
+import { auth } from '$lib/delete-auth/auth';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 import type { Handle } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';

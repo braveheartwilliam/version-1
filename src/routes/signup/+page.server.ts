@@ -1,6 +1,6 @@
 /// from Grok 3
 // src/routes/sign-up/+page.server.ts
-import { auth } from '$lib//auth/auth';
+import { auth } from '$lib/delete-auth/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -23,7 +23,7 @@ export const actions: Actions = {
 				body: {
 					email: email,
 					password: password,
-					name: email.split( '@' )[ 0 ],
+					name: email.split('@')[0],
 					role: 'user'
 				}
 			});

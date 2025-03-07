@@ -1,5 +1,5 @@
 import { betterAuth } from 'better-auth';
-import { dbAUTH } from '../../lib/server/db'; //  lib/server/db/index.ts
+import { dbAUTH } from '../db/index'; //  lib/server/db/index.ts
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { account, session, user, verification } from './auth-schema';
 import type { InferSelectModel } from 'drizzle-orm';

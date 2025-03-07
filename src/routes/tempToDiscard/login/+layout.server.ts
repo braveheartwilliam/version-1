@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { error, redirect } from '@sveltejs/kit';
-import { auth } from '$lib/auth/auth';
+import { auth } from '$lib/delete-auth/auth';
 import { json } from '@sveltejs/kit';
 import { reader } from 'stream';
 

@@ -2,7 +2,7 @@
 
 // src/routes/login/+page.server.ts
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/auth/auth';
+import { auth } from '$lib/delete-auth/auth';
 import { fail, redirect, type Cookies } from '@sveltejs/kit';
 // import type { Actions } from '@sveltejs/kit';
 // export const actions: Actions = {
@@ -60,26 +60,22 @@ export const load: PageServerLoad = async ({ request, cookies, locals }) => {
 		// *** parser signin cookie to decode token
 
 		const setCookieHeader = loginResponse.headers.get('set-cookie');
-		if ( setCookieHeader )
-		{
-			const parsedCookie = setCookieHeader.split( ';' )[ 0 ];
-			const [ cookieName, encodedToken ] = parsedCookie.split( '=' );
+		if (setCookieHeader) {
+			const parsedCookie = setCookieHeader.split(';')[0];
+			const [cookieName, encodedToken] = parsedCookie.split('=');
 			// need to decode it first
-			const decodedToken = decodeURIComponent( encodedToken );
+			const decodedToken = decodeURIComponent(encodedToken);
 
-
-			cookies.set( cookieName, decodedToken, {
+			cookies.set(cookieName, decodedToken, {
 				path: '/',
 				httpOnly: true,
 				secure: process.env.NODE_ENV === 'production',
 				sameSite: 'lax',
 				maxAge: 60 * 60 * 24 // 1 day
-			} );
+			});
 		}
 		const checkCookie = cookies.get('better-auth.session_token');
 		console.log('checkCookie', checkCookie);
-
-
 
 		// request.headers.set('better-auth.session_token', loginResponse.token);
 

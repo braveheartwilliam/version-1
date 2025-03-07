@@ -1,7 +1,7 @@
 // the following is from Grok3
 
 // src/routes/login/+page.server.ts
-import { auth } from '$lib/auth/auth';
+import { auth } from '$lib/delete-auth/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { cookies } from '@sveltejs/kit';
