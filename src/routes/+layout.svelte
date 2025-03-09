@@ -6,7 +6,7 @@
 	import { goto } from '$app/navigation';
 	// import '../style.css';
 	import '../app.css';
-	import '../style.css';  
+	import '../style.css';
 	// import { previousRoute } from './shared.svelte';
 	console.log('***layout.svelte***');
 
@@ -21,8 +21,8 @@
 	// let { children } = $props();
 	let isOpen = $state(false);
 	let isServicesOpen = $state(false);
+	let isTestOpen = $state(false);
 	let isContactOpen = $state(false);
-
 	// let subMenuChanged = $state(false);
 
 	function handleMouseOver(e: MouseEvent, href: string) {
@@ -52,6 +52,11 @@
 	function toggleContactMenu() {
 		isContactOpen = !isContactOpen;
 	}
+
+	function toggleTestMenu() {
+		isTestOpen = !isTestOpen;
+	}
+
 	// function next() {
 	// 	console.log('next');
 	// }
@@ -90,8 +95,8 @@
 		</button>
 	</div>
 
-	<nav class="{isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'} bg-primary" >
-		<ul class="{isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'}">
+	<nav class="{isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'} bg-primary">
+		<ul class={isOpen ? 'menu-toggle-open' : 'menu-toggle-closed'}>
 			<!-- <ul class="menu-toggle-closed"> -->
 			<li><a href="/home">Home</a></li>
 			<li><a href="/about">About</a></li>
@@ -192,6 +197,57 @@
 						handleClick('/resetBreadcrumbs');
 					}}>Reset</button
 				>
+			</li>
+			<!-- <li>
+				<button
+					onclick={() => {
+						handleClick('/test');
+					}}>Test</button
+				>
+			</li> -->
+			<li
+				onmouseleave={() => {
+					isTestOpen = false;
+				}}
+			>
+				<span
+					class="menu-link"
+					role="menuitem"
+					tabindex="0"
+					onmouseover={toggleTestMenu}
+					onfocus={toggleTestMenu}>Test</span
+				>
+				<ul
+					class={isTestOpen ? 'menu-test-toggle-open' : 'menu-test-toggle-closed'}
+					onmouseleave={() => {
+						isTestOpen = false;
+					}}
+					onmouseover={(e) => {
+						e.preventDefault();
+						isTestOpen = true;
+					}}
+					onfocus={() => {
+						isTestOpen = true;
+					}}
+				>
+					<!-- <ul class="menu-toggle-closed"> -->
+					<li>
+						<button
+							onclick={() => handleClick('/test/pageServLoad')}
+							onfocus={() => {
+								isTestOpen = true;
+							}}>Load</button
+						>
+					</li>
+					<li>
+						<button
+							onclick={() => handleClick('/test/pageServAction')}
+							onfocus={() => {
+								isTestOpen = true;
+							}}>Action</button
+						>
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</nav>
@@ -327,6 +383,19 @@
 		display: none;
 	}
 	.menu-contact-toggle-open {
+		display: flex;
+		flex-direction: column;
+		cursor: pointer;
+		list-style: none;
+		margin-top: 5px;
+		gap: 1rem;
+		background-color: yellow;
+		color: black;
+	}
+	.menu-test-toggle-closed {
+		display: none;
+	}
+	.menu-test-toggle-open {
 		display: flex;
 		flex-direction: column;
 		cursor: pointer;
